@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- 1 配置类和表对应
+        class标签
+        name属性：实体类全路径
+        table属性：数据库表名称
+    -->
+    <class name="cn.itcast.pojo.Person" table="t_person">
+        <id name="person_id" column="person_id">
+            <generator class="native"> </generator>
+        </id>
+        <property name="person_name" column="person_name"> </property>
+        <property name="person_password" column="person_password"> </property>
+        <!-- 在用户里面表示所有角色，使用set标签
+            name属性：角色set集合名称
+            table属性：第三张表名称
+        -->
+        <set name="setRole" table="person_role" cascade="save-update,delete">
+            <!-- key标签里面配置
+                配置当前映射文件在第三张表外键名称
+             -->
+            <key column="personid"> </key>
+            <!-- class：角色实体类全路径
+                 column：角色在第三张表外键名称
+             -->
+            <many-to-many class="cn.itcast.pojo.Role" column="roleid"> </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
+
+
+
+
+
